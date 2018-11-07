@@ -1,39 +1,62 @@
-//create a test button
-newButton = $("<button>");
-newButton.attr("data-thing=cat");
-newButton.text("Click me!");
-$("#buttons-go-here").prepend(newButton);
+var gifs = ["Terry Crews", "Oh Yeah!", "Dancing"];
 
-$("button").on("click", function () {
-    //var something = $(this).attr("data-thing")
-
-    //store random GIF as queryurl
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=cat&api_key=dJ6s1LUnfDDadiYcJgd2ojjZQp3fzfTB&limit=10"
-    //makr our AJAX call
+//have a function that will display our GIFS
+function showGifs() {
+    var gif = $(this).attr("data-name");
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=dJ6s1LUnfDDadiYcJgd2ojjZQp3fzfTB&limit=10"
+    //make ajax call
     $.ajax({
             url: queryURL,
             method: "GET"
         })
         //after data comes back from ajax request
-        .then(function (response) {
+        .then(function(response) {
             console.log(queryURL);
             console.log(response);
+
 
             //store results
             var results = response.data;
             //through results array
             for (i = 0; i < results.length; i++) {
-                var catDiv = $("<div>");
+                var gifDiv = $("<div>");
                 var p = $("<p>").text("Rating: " + results[i].rating);
-                var catImg = $("<img>");
+                var gifHolder = $("<img>");
 
-                catImg.attr("src", results[i].images.fixed_height.url);
-                catDiv.append(catImg);
-                catDiv.append(p);
+                gifHolder.attr("src", results[i].images.fixed_height_still.url);
+                gifDiv.append(gifHolder);
+                gifDiv.append(p);
 
-                $("#gifs-go-here").prepend(catDiv);
-
+                $("#gifs-go-here").prepend(gifDiv);
             }
         })
+};
 
+//creat buttons
+function displayButtons() {
+    //empty div so we don't get repeat buttons
+    $("#buttons-go-here").empty();
+    //create a loop for our gif array
+    for (var i = 0; i < gifs.length; i++) {
+        var b = $("<button>");
+        b.addClass("gif-btn");
+        b.attr("data-name", gifs[i]);
+        b.text(gifs[i]);
+        $("#buttons-go-here").append(b);
+    }
+};
+//grab the user input and put it into gif array
+$("#add-gif").on("click", function(){
+    event.preventdefault();
+
+    var gif = $("#gif-input").val().trim();
+    gifs.push(gif);
+
+    displayButtons();
 });
+
+//on-click function for any button that has the gif-btn class
+$(document).on("click", ".gif-btn", showGifs);
+
+//display buttons when page loads
+displayButtons();
