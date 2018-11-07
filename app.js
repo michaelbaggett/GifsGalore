@@ -45,15 +45,17 @@ function displayButtons() {
         $("#buttons-go-here").append(b);
     }
 };
-//grab the user input and put it into gif array
-$("#add-gif").on("click", function(){
-    event.preventdefault();
 
-    var gif = $("#gif-input").val().trim();
-    gifs.push(gif);
+
+//WHY DOES THIS FUNCTION NOT WORK???????????????????
+//grab the user input and put it into gif array
+$("#user-gif").on("click", function(event) {
+    event.preventdefault();
+    var newGif = $("#gif-input").val().trim();
+    gifs.push(newGif);
 
     displayButtons();
-});
+})
 
 //on-click function for any button that has the gif-btn class
 $(document).on("click", ".gif-btn", showGifs);
