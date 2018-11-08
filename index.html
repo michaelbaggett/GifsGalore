@@ -15,22 +15,26 @@
 </head>
 
 <body>
+
     <div class="container">
         <div class="row">
             <div id="buttons-go-here"></div>
         </div>
-        <form>
-            <div class="form-group">
-                <label for="gif-input">Add a gif!</label>
-                <input type="text" class="form-control" id="gif-input">
-            </div>
-            <button id="user-gif" type="submit" class="btn btn-primary">Submit</button>
-        </form>
         <div class="row">
-            <div id="gifs-go-here"></div>
+            <div class="col-8">
+                <div id="gifs-go-here"></div>
+            </div>
+            <div class="col">
+                <form>
+                    <div class="form-group">
+                        <label for="gif-input">Add a gif!</label>
+                        <input type="text" class="form-control" id="gif-input">
+                    </div>
+                    <button id="user-gif" type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
-
     <script src="app.js"></script>
 </body>
 

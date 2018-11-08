@@ -22,8 +22,10 @@ function showGifs() {
                 var gifDiv = $("<div>");
                 var p = $("<p>").text("Rating: " + results[i].rating);
                 var gifHolder = $("<img>");
+                gifHolder.attr("class", "gif")
 
                 gifHolder.attr("src", results[i].images.fixed_height_still.url);
+                gifHolder.attr("data-othersrc", results[i].images.fixed_height.url);
                 gifDiv.append(gifHolder);
                 gifDiv.append(p);
 
@@ -32,6 +34,16 @@ function showGifs() {
         })
 };
 
+$("#gifs-go-here").on("click", ".gif", function(){
+    console.log("We are in our .gif click")
+    var currentSrc = $(this).attr("src");
+        $(this).attr("src", $(this).attr("data-othersrc"));
+        $(this).attr("data-othersrc", currentSrc);
+
+        //if gif src=still then swap to animated
+        //if gif is animated, swap to still
+})
+
 //creat buttons
 function displayButtons() {
     //empty div so we don't get repeat buttons
@@ -39,7 +51,7 @@ function displayButtons() {
     //create a loop for our gif array
     for (var i = 0; i < gifs.length; i++) {
         var b = $("<button>");
-        b.addClass("gif-btn");
+        b.addClass("btn btn-outline-info");
         b.attr("data-name", gifs[i]);
         b.text(gifs[i]);
         $("#buttons-go-here").append(b);
@@ -47,18 +59,20 @@ function displayButtons() {
 };
 
 
-//WHY DOES THIS FUNCTION NOT WORK???????????????????
+
 //grab the user input and put it into gif array
 $("#user-gif").on("click", function(event) {
-    event.preventdefault();
+    console.log("look here")
+    event.preventDefault();
     var newGif = $("#gif-input").val().trim();
     gifs.push(newGif);
+    console.log(gifs)
 
     displayButtons();
 })
 
 //on-click function for any button that has the gif-btn class
-$(document).on("click", ".gif-btn", showGifs);
+$(document).on("click", ".btn-outline-info", showGifs);
 
 //display buttons when page loads
 displayButtons();
