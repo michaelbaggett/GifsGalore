@@ -4,4 +4,4 @@
 
 #### The user also has the option to add a button for any category they wish to get additional gifs.
 
-See it in action here
+See it in action [here](https://michaelbaggett.github.io/GifsGalore/)
