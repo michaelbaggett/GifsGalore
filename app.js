@@ -66,7 +66,7 @@ $("#user-gif").on("click", function(event) {
     event.preventDefault();
     var newGif = $("#gif-input").val().trim();
     gifs.push(newGif);
-    console.log(gifs)
+    console.log(gifs);
 
     displayButtons();
 })
